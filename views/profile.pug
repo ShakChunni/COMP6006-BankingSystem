@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  .row.justify-content-center
+    .col-md-8.col-lg-6
+      .card.shadow-sm
+        .card-body
+          h1.h4.mb-3 Update Personal Details
+          form(action="/profile", method="POST")
+            .mb-3
+              label.form-label(for="address") Address
+              input#address.form-control(type="text", name="address", value=(formData && formData.address) || "")
+            .mb-3
+              label.form-label(for="phone") Phone
+              input#phone.form-control(type="text", name="phone", value=(formData && formData.phone) || "")
+            button.btn.btn-primary(type="submit") Save Details

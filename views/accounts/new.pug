@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+  .row.justify-content-center
+    .col-md-8.col-lg-6
+      .card.shadow-sm
+        .card-body
+          h1.h4.mb-3 Create Bank Account
+          form(action="/accounts", method="POST")
+            .mb-3
+              label.form-label(for="accountType") Account Type
+              select#accountType.form-select(name="accountType", required)
+                option(value="") Select account type
+                option(value="Savings", selected=(formData && formData.accountType === "Savings")) Savings
+                option(value="Checking", selected=(formData && formData.accountType === "Checking")) Checking
+                option(value="Business", selected=(formData && formData.accountType === "Business")) Business
+            .mb-3
+              label.form-label(for="initialBalance") Initial Balance (optional)
+              input#initialBalance.form-control(type="number", step="0.01", min="0", name="initialBalance", value=(formData && formData.initialBalance) || "")
+            button.btn.btn-primary(type="submit") Create Account

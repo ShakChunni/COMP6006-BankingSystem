@@ -1,0 +1,10 @@
+node_modules/
+.env
+.env.*
+!.env.example
+npm-debug.log*
+EXPLANATION.md
+EXPLANATION_AND_AUDIT.md
+Practical Assignment Final.pdf
+assignment2_submission.zip
+.DS_Store

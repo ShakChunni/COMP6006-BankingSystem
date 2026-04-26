@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+  .row.justify-content-center
+    .col-md-7.col-lg-6
+      .card.shadow-sm
+        .card-body
+          h1.h4.mb-3 Register
+          form(action="/register", method="POST")
+            .mb-3
+              label.form-label(for="customerId") UserID / CustomerID
+              input#customerId.form-control(type="text", name="customerId", maxlength="100", required, value=(formData && formData.customerId) || "")
+            .mb-3
+              label.form-label(for="password") Password
+              input#password.form-control(type="password", name="password", minlength="8", required)
+            .mb-3
+              label.form-label(for="address") Address
+              input#address.form-control(type="text", name="address", value=(formData && formData.address) || "")
+            .mb-3
+              label.form-label(for="phone") Phone
+              input#phone.form-control(type="text", name="phone", value=(formData && formData.phone) || "")
+            button.btn.btn-primary(type="submit") Create Account
+          p.mt-3.mb-0
+            | Already registered?
+            a.ms-1(href="/login") Login here

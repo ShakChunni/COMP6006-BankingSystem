@@ -1,0 +1,55 @@
+extends ../layout
+
+block content
+  h1.h3.mb-3 Search Transactions
+
+  .card.shadow-sm.mb-4
+    .card-body
+      form(action="/transactions", method="GET")
+        .row.g-2
+          .col-md-3
+            label.form-label(for="search") Description / Reference
+            input#search.form-control(type="text", name="search", value=(filters && filters.search) || "")
+          .col-md-2
+            label.form-label(for="accountNumber") Account Number
+            input#accountNumber.form-control(type="text", name="accountNumber", value=(filters && filters.accountNumber) || "")
+          .col-md-2
+            label.form-label(for="startDate") Start Date
+            input#startDate.form-control(type="date", name="startDate", value=(filters && filters.startDate) || "")
+          .col-md-2
+            label.form-label(for="endDate") End Date
+            input#endDate.form-control(type="date", name="endDate", value=(filters && filters.endDate) || "")
+          .col-md-2
+            label.form-label(for="amount") Amount
+            input#amount.form-control(type="number", step="0.01", min="0.01", name="amount", value=(filters && filters.amount) || "")
+          .col-md-1.d-flex.align-items-end
+            button.btn.btn-primary.w-100(type="submit") Search
+
+  .card.shadow-sm
+    .card-body
+      if transactions.length
+        .table-responsive
+          table.table.table-striped.table-hover
+            thead
+              tr
+                th Date
+                th Type
+                th Amount
+                th Description
+                th Reference
+                th Account
+            tbody
+              each tx in transactions
+                tr
+                  td= tx.createdAt.toLocaleString()
+                  td.text-capitalize= tx.type
+                  td= formatCurrency(tx.amount)
+                  td= tx.description || "-"
+                  td= tx.reference || "-"
+                  td
+                    if tx.type === "transfer"
+                      | #{tx.fromAccount ? tx.fromAccount.accountNumber : "-"} -> #{tx.toAccount ? tx.toAccount.accountNumber : "-"}
+                    else
+                      | #{tx.account ? tx.account.accountNumber : "-"}
+      else
+        .alert.alert-info.mb-0 No transactions found.

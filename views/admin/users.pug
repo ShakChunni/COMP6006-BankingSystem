@@ -1,0 +1,37 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.align-items-center.mb-3
+    h1.h3.mb-0 All Users
+    a.btn.btn-outline-secondary(href="/admin") Back to Admin
+
+  .table-responsive
+    table.table.table-striped.table-hover.bg-white
+      thead
+        tr
+          th CustomerID
+          th Admin
+          th Status
+          th Address
+          th Phone
+          th
+      tbody
+        each user in users
+          tr
+            td= user.customerId
+            td
+              if user.isAdmin
+                span.badge.text-bg-info Yes
+              else
+                span.badge.text-bg-secondary No
+            td
+              if user.isActive
+                span.badge.text-bg-success Active
+              else
+                span.badge.text-bg-danger Inactive
+            td= user.address || "-"
+            td= user.phone || "-"
+            td
+              form(action=`/admin/users/${user._id}/toggle-active`, method="POST")
+                button.btn.btn-sm(type="submit", class=user.isActive ? "btn-outline-danger" : "btn-outline-success")
+                  | #{user.isActive ? "Deactivate" : "Activate"}

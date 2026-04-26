@@ -1,0 +1,31 @@
+nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+  .container
+    a.navbar-brand(href=currentUser ? "/dashboard" : "/") Online Banking
+    button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarContent", aria-controls="navbarContent", aria-expanded="false", aria-label="Toggle navigation")
+      span.navbar-toggler-icon
+    #navbarContent.collapse.navbar-collapse
+      if currentUser
+        ul.navbar-nav.me-auto.mb-2.mb-lg-0
+          li.nav-item
+            a.nav-link(href="/dashboard") Dashboard
+          li.nav-item
+            a.nav-link(href="/accounts/new") Create Account
+          li.nav-item
+            a.nav-link(href="/transactions") Search Transactions
+          li.nav-item
+            a.nav-link(href="/profile") Profile
+          if currentUser.isAdmin
+            li.nav-item
+              a.nav-link(href="/admin") Admin Panel
+        ul.navbar-nav.ms-auto.align-items-lg-center
+          li.nav-item.me-lg-3
+            span.nav-link.text-white UserID: #{currentUser.customerId}
+          li.nav-item
+            form(action="/logout", method="POST")
+              button.btn.btn-outline-light.btn-sm(type="submit") Logout
+      else
+        ul.navbar-nav.ms-auto.mb-2.mb-lg-0
+          li.nav-item
+            a.nav-link(href="/login") Login
+          li.nav-item
+            a.nav-link(href="/register") Register

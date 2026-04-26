@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+  .d-flex.justify-content-between.align-items-center.mb-3
+    h1.h3.mb-0 All Accounts
+    a.btn.btn-outline-secondary(href="/admin") Back to Admin
+
+  .table-responsive
+    table.table.table-striped.table-hover.bg-white
+      thead
+        tr
+          th Account Number
+          th Type
+          th Balance
+          th Status
+          th Owner
+          th
+      tbody
+        each account in accounts
+          tr
+            td= account.accountNumber
+            td= account.accountType
+            td= formatCurrency(account.balance)
+            td
+              if account.status === "Active"
+                span.badge.text-bg-success Active
+              else
+                span.badge.text-bg-secondary Inactive
+            td= account.createdBy ? account.createdBy.customerId : "-"
+            td
+              form(action=`/admin/accounts/${account._id}/toggle-status`, method="POST")
+                button.btn.btn-sm(type="submit", class=account.status === "Active" ? "btn-outline-danger" : "btn-outline-success")
+                  | #{account.status === "Active" ? "Deactivate" : "Activate"}

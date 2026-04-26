@@ -1,0 +1,11 @@
+if success && success.length
+  each message in success
+    .alert.alert-success(role="alert")= message
+
+if error && error.length
+  each message in error
+    .alert.alert-danger(role="alert")= message
+
+if validationErrors && validationErrors.length
+  each message in validationErrors
+    .alert.alert-warning(role="alert")= message

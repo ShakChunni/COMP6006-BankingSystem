@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  .d-flex.justify-content-between.align-items-center.mb-3
+    h1.h3.mb-0 Your Accounts
+    a.btn.btn-primary(href="/accounts/new") Create New Account
+
+  if accounts.length
+    .table-responsive
+      table.table.table-striped.table-hover.bg-white
+        thead
+          tr
+            th Account Number
+            th Type
+            th Status
+            th Balance
+            th
+        tbody
+          each account in accounts
+            tr
+              td= account.accountNumber
+              td= account.accountType
+              td
+                if account.status === "Active"
+                  span.badge.text-bg-success Active
+                else
+                  span.badge.text-bg-secondary Inactive
+              td= formatCurrency(account.balance)
+              td
+                a.btn.btn-sm.btn-outline-primary(href=`/accounts/${account._id}`) View
+  else
+    .alert.alert-info You have no bank accounts yet. Create one to get started.

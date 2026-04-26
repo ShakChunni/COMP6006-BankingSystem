@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+  h1.h3.mb-3 Admin Panel
+
+  .row.g-3
+    .col-md-4
+      .card.shadow-sm.h-100
+        .card-body
+          h2.h5 Users
+          p.display-6.mb-3= summary.userCount
+          a.btn.btn-outline-primary(href="/admin/users") View all users
+    .col-md-4
+      .card.shadow-sm.h-100
+        .card-body
+          h2.h5 Accounts
+          p.display-6.mb-3= summary.accountCount
+          a.btn.btn-outline-primary(href="/admin/accounts") View all accounts
+    .col-md-4
+      .card.shadow-sm.h-100
+        .card-body
+          h2.h5 Transactions
+          p.display-6.mb-3= summary.transactionCount
+          a.btn.btn-outline-primary(href="/admin/transactions") View all transactions
